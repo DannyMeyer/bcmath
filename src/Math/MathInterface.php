@@ -1,11 +1,11 @@
 <?php
 
-namespace bcmath\Math;
+namespace BCMath\Math;
 
 /**
  * Interface MathInterface
  *
- * @package bcmath\Math
+ * @package BCMath\Math
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 interface MathInterface

@@ -1,9 +1,9 @@
 <?php
 
-namespace bcmath\Format;
+namespace BCMath\Format;
 
-use bcmath\Helper;
-use bcmath\Math;
+use BCMath\Helper;
+use BCMath\Math;
 
 use function array_reverse;
 use function bcadd;
@@ -21,7 +21,7 @@ use function strlen;
 /**
  * Class Decimal
  *
- * @package bcmath\Format
+ * @package BCMath\Format
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 class Decimal extends Format

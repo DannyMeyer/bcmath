@@ -1,12 +1,13 @@
 <?php
 
-namespace bcmath\Format;
+namespace BCMath\Format;
 
-use bcmath\Helper;
-use bcmath\Math;
+use BCMath\Helper;
+use BCMath\Math;
 
 use function abs;
 use function array_map;
+use function array_reverse;
 use function base_convert;
 use function bcadd;
 use function bcmul;
@@ -18,12 +19,13 @@ use function rtrim;
 use function str_repeat;
 use function str_split;
 use function strlen;
+use function strrev;
 use function substr;
 
 /**
  * Class Hexadecimal
  *
- * @package bcmath\Format
+ * @package BCMath\Format
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 class Hexadecimal extends Format
@@ -36,10 +38,7 @@ class Hexadecimal extends Format
 
     public const FORMAT_VALIDATION = '/^[0-9abcdefABCDEF]*$/';
 
-    /**
-     * Block size for hexadecimal conversion
-     * possible values: 1, 2, 3, 4, 5, 6, 7, 8
-     */
+    /** Block size for hexadecimal conversion; Needs to be set to BINARY_BLOCK_SIZE / 4 */
     public const HEXADECIMAL_BLOCK_SIZE = 8;
 
     /**
@@ -142,7 +141,8 @@ class Hexadecimal extends Format
      */
     private function convertBlockToBinary($hexadecimal): string
     {
-        $binary = base_convert($hexadecimal, 16, 2);
+        $reversedHexadecimal = strrev($hexadecimal);
+        $binary = base_convert($reversedHexadecimal, 16, 2);
         $missingLeadingZeroAmount = Binary::BINARY_BLOCK_SIZE - strlen($binary);
 
         /** fill with leading 0 to fill block size length */
@@ -165,8 +165,9 @@ class Hexadecimal extends Format
     private function convertNumberToBinary(string $number, $removeLeadingZero = true): string
     {
         /* Split into blocks with 8 characters */
+        $reversedHexadecimal = strrev($number);
         $blocks = str_split(
-            $number,
+            $reversedHexadecimal,
             static::HEXADECIMAL_BLOCK_SIZE
         );
 
@@ -175,7 +176,8 @@ class Hexadecimal extends Format
             $blocks
         );
 
-        $compoundNumber = implode('', $mappedBlocks);
+        $reversedBlocks = array_reverse($mappedBlocks);
+        $compoundNumber = implode('', $reversedBlocks);
 
         if ($removeLeadingZero === true) {
             $compoundNumber = ltrim($compoundNumber, '0');

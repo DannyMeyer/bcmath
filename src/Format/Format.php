@@ -1,9 +1,9 @@
 <?php
 
-namespace bcmath\Format;
+namespace BCMath\Format;
 
-use bcmath\Exceptions\InvalidNumberFormat;
-use bcmath\Math\MathInterface;
+use BCMath\Exceptions\InvalidNumberFormat;
+use BCMath\Math\MathInterface;
 
 use function preg_match;
 use function strlen;
@@ -13,7 +13,7 @@ use function substr;
 /**
  * Class Format
  *
- * @package bcmath\Format
+ * @package BCMath\Format
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 abstract class Format implements FormatInterface, MathInterface

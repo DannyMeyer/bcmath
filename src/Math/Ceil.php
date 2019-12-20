@@ -1,10 +1,10 @@
 <?php
 
-namespace bcmath\Math;
+namespace BCMath\Math;
 
-use bcmath\Format\Decimal;
-use bcmath\Format\FormatInterface;
-use bcmath\Format\Hexadecimal;
+use BCMath\Format\Decimal;
+use BCMath\Format\FormatInterface;
+use BCMath\Format\Hexadecimal;
 
 use function rtrim;
 use function strlen;
@@ -13,7 +13,7 @@ use function substr;
 /**
  * Trait Ceil
  *
- * @package bcmath\Math
+ * @package BCMath\Math
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 trait Ceil

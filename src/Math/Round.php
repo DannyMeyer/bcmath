@@ -1,8 +1,8 @@
 <?php
 
-namespace bcmath\Math;
+namespace BCMath\Math;
 
-use bcmath\Format\FormatInterface;
+use BCMath\Format\FormatInterface;
 
 use function bccomp;
 use function substr;
@@ -10,7 +10,7 @@ use function substr;
 /**
  * Trait Round
  *
- * @package bcmath\Math
+ * @package BCMath\Math
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 trait Round

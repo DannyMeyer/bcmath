@@ -1,11 +1,11 @@
 <?php
 
-namespace bcmath\Math;
+namespace BCMath\Math;
 
 /**
  * Trait Abs
  *
- * @package bcmath\Math
+ * @package BCMath\Math
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 trait Abs

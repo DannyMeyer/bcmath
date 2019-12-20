@@ -1,13 +1,13 @@
 <?php
 
-namespace bcmath\Math;
+namespace BCMath\Math;
 
 use function substr;
 
 /**
  * Trait Floor
  *
- * @package bcmath\Math
+ * @package BCMath\Math
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 trait Floor

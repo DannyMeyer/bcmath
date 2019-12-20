@@ -1,16 +1,17 @@
 <?php
 
-namespace bcmath\Helper;
+namespace BCMath\Helper;
 
-use bcmath\Format\Binary;
-use bcmath\Format\Decimal;
-use bcmath\Format\FormatInterface;
-use bcmath\Format\Hexadecimal;
+use BCMath\Format\Binary;
+use BCMath\Format\Decimal;
+use BCMath\Format\FormatInterface;
+use BCMath\Format\Hexadecimal;
 
 /**
  * Trait FractionHelper
  *
- * @package bcmath\Helper
+ * @package BCMath\Helper
+ * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 trait FractionHelper
 {

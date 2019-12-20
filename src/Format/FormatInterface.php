@@ -1,11 +1,11 @@
 <?php
 
-namespace bcmath\Format;
+namespace BCMath\Format;
 
 /**
  * Interface FormatInterface
  *
- * @package bcmath\Format
+ * @package BCMath\Format
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 interface FormatInterface

@@ -1,15 +1,15 @@
 <?php
 
-namespace bcmath\Format;
+namespace BCMath\Format;
 
-use bcmath\Helper;
-use bcmath\Math;
+use BCMath\Helper;
+use BCMath\Math;
 
 use function array_map;
 use function array_reverse;
-use function bindec;
-use function dechex;
+use function base_convert;
 use function implode;
+use function ltrim;
 use function str_repeat;
 use function str_split;
 use function strlen;
@@ -18,7 +18,7 @@ use function strrev;
 /**
  * Class Binary
  *
- * @package bcmath\Format
+ * @package BCMath\Format
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 class Binary extends Format
@@ -31,10 +31,7 @@ class Binary extends Format
 
     public const FORMAT_VALIDATION = '/^[0-1]*$/';
 
-    /**
-     * Block size for binary conversion
-     * possible values: 4, 8, 12, 16, 20, 24, 28, 32
-     */
+    /** Block size for binary conversion; Needs to be set to 4 * HEXADECIMAL_BLOCK_SIZE */
     public const BINARY_BLOCK_SIZE = 32;
 
     /**
@@ -80,14 +77,25 @@ class Binary extends Format
     public function convertToHexadecimal(?int $fractionPrecision = 16): Hexadecimal
     {
         /** Reverse binary and split it into blocks with a maximum of 32 characters */
-        $blocks = str_split(strrev($this->number), static::BINARY_BLOCK_SIZE);
+        $reversedBinary = strrev($this->number);
+        $blocks = str_split(
+            $reversedBinary,
+            static::BINARY_BLOCK_SIZE
+        );
 
         /**
          * Map function to convert reversed binary to hex for each block
          * reverse complete array to have the correct sort order
          * implode array to get complete hexadecimal string
          */
-        $number = implode('', array_reverse(array_map([$this, 'mapReverseBin2Hex'], $blocks)));
+        $mappedBlocks = array_map(
+            [$this, 'convertReverseBlockToHexadecimal'],
+            $blocks
+        );
+
+        $reversedBlocks = array_reverse($mappedBlocks);
+        $number = implode('', $reversedBlocks);
+        $number = ltrim($number, '0');
 
         if (!empty($this->fraction)) {
             $fraction = $this->convertFractionToHexadecimal();
@@ -120,7 +128,7 @@ class Binary extends Format
         return implode(
             '',
             array_map(
-                [$this, 'mapBinToHex'],
+                [$this, 'convertBlockToHexadecimal'],
                 $blocks
             )
         );
@@ -133,9 +141,19 @@ class Binary extends Format
      *
      * @return string Hexadecimal Number as String
      */
-    private function mapReverseBin2Hex(string $binary): string
+    private function convertReverseBlockToHexadecimal(string $binary): string
     {
-        return dechex(bindec(strrev($binary)));
+        $normalizedBinary = strrev($binary);
+        $hexadecimal = base_convert($normalizedBinary, 2, 16);
+        $missingLeadingZeroAmount = Hexadecimal::HEXADECIMAL_BLOCK_SIZE - strlen($hexadecimal);
+
+        /** fill with leading 0 to fill block size length */
+        $leadingBlockNumbers = str_repeat(
+            '0',
+            $missingLeadingZeroAmount
+        );
+
+        return $leadingBlockNumbers . $hexadecimal;
     }
 
     /**
@@ -145,9 +163,9 @@ class Binary extends Format
      *
      * @return string
      */
-    private function mapBinToHex(string $binary): string
+    private function convertBlockToHexadecimal(string $binary): string
     {
-        $hexadecimal = dechex(bindec($binary));
+        $hexadecimal = base_convert($binary, 2, 16);
 
         $missingLeadingZeroAmount = Hexadecimal::HEXADECIMAL_BLOCK_SIZE - strlen($hexadecimal);
         $leadingBlockNumbers = str_repeat(

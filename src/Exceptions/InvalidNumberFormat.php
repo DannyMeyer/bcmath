@@ -1,13 +1,13 @@
 <?php
 
-namespace bcmath\Exceptions;
+namespace BCMath\Exceptions;
 
 use Exception;
 
 /**
  * Class invalidNumberFormat
  *
- * @package bcmath\Exceptions
+ * @package BCMath\Exceptions
  * @author  Danny Meyer <danny.meyer@ravenc.de>
  */
 class InvalidNumberFormat extends Exception

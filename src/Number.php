@@ -1,13 +1,13 @@
 <?php
 
-namespace bcmath;
+namespace BCMath;
 
-use bcmath\Format\Binary;
-use bcmath\Format\Decimal;
-use bcmath\Format\Format;
-use bcmath\Format\FormatInterface;
-use bcmath\Format\Hexadecimal;
-use bcmath\Math\MathInterface;
+use BCMath\Format\Binary;
+use BCMath\Format\Decimal;
+use BCMath\Format\Format;
+use BCMath\Format\FormatInterface;
+use BCMath\Format\Hexadecimal;
+use BCMath\Math\MathInterface;
 
 use function explode;
 
@@ -30,20 +30,22 @@ class Number
      * Number constructor
      *
      * @param string|FormatInterface $number
-     * @param string                 $state
+     * @param string                 $format
      */
-    public function __construct($number, string $state = Format::FORMAT_DECIMAL)
+    public function __construct($number, string $format = Format::FORMAT_DECIMAL)
     {
-        $this->number = $this->handleNumber($number, $state);
+        $this->number = $this->handleNumber($number, $format);
     }
 
     /**
+     * Creating objects for given format
+     *
      * @param string|FormatInterface $number
-     * @param string                 $state
+     * @param string                 $format
      *
      * @return FormatInterface
      */
-    private function handleNumber($number, string $state): FormatInterface
+    private function handleNumber($number, string $format): FormatInterface
     {
         if ($number instanceof FormatInterface) {
             return $number;
@@ -54,11 +56,11 @@ class Number
         $value = $numberParts[0] ?? '0';
         $decimals = $numberParts[1] ?? null;
 
-        if ($state === Format::FORMAT_DECIMAL) {
+        if ($format === Format::FORMAT_DECIMAL) {
             return new Decimal($value, $decimals);
         }
 
-        if ($state === Format::FORMAT_HEXADECIMAL) {
+        if ($format === Format::FORMAT_HEXADECIMAL) {
             return new Hexadecimal($value, $decimals);
         }
 
